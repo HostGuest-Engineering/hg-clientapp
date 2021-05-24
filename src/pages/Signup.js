@@ -82,7 +82,7 @@ const SignUpPage = ()=>{
                                 margin="dense"
                                 variant="outlined"
                                 />
-                                <Error error={errors.password} />
+                                <Error error={errors.firstName} />
                             </>
                         </Grid>
                         <Grid xl={12} sm={12} xs={12} lg={12}>
@@ -100,7 +100,7 @@ const SignUpPage = ()=>{
                                 margin="dense"
                                 variant="outlined"
                                 />
-                                 <Error error={errors.password} />
+                                 <Error error={errors.lastName} />
                             </>
                         </Grid>
                         <Grid xl={12} sm={12} xs={12} lg={12}>
@@ -118,7 +118,7 @@ const SignUpPage = ()=>{
                                 margin="dense"
                                 variant="outlined"
                                 />
-                                 <Error error={errors.password} />
+                                 <Error error={errors.email} />
                             </>
                         </Grid>
                         <Grid xl={12} sm={12} xs={12} lg={12}>
@@ -154,7 +154,7 @@ const SignUpPage = ()=>{
                                 margin="dense"
                                 variant="outlined"
                                 />
-                                 <Error error={errors.password} />
+                                 <Error error={errors.confirmPassword} />
                             </>
                         </Grid>
                         <Grid xl={12} sm={12} xs={12} lg={12}>
@@ -172,7 +172,7 @@ const SignUpPage = ()=>{
                                 margin="dense"
                                 variant="outlined"
                                 />
-                                 <Error error={errors.password} />
+                                 <Error error={errors.mobile} />
                             </>
                         </Grid>
                     </Grid>

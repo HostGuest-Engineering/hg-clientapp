@@ -102,7 +102,7 @@ const LoginPage = ()=>{
                                 margin="dense"
                                 variant="outlined"
                                 />
-                                <Error error={errors.password} />
+                                <Error error={errors.email} />
                             </>
                         </Grid>
                         <Grid xl={12} sm={12} xs={12} lg={12}>
