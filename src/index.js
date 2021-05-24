@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import {Provider} from "react-redux";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {store} from "./redux/store";
 import "../node_modules/react-responsive-carousel/lib/styles/carousel.min.css"; 
 
 ReactDOM.render(
+  <Provider store={store}>
   <BrowserRouter>
     <App />
-  </BrowserRouter>,
+  </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 

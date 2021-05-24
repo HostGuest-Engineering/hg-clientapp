@@ -1,15 +1,19 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles,useTheme } from '@material-ui/core/styles';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import IconButton from '@material-ui/core/IconButton';
-//import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-// import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-// import MenuIcon from '@material-ui/icons/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import {useDispatch,useSelector} from "react-redux";
 import SearchIcon from '@material-ui/icons/Search';
+import Avatar from '@material-ui/core/Avatar';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import {HGButton} from "../../components/Button";
-import logo from "../../components/Assets/logo.jpg";
+import pink from "../../components/Assets/pink.png";
+import {authAction,isAuthenticated,changeIndex} from "../../redux/actions/authAction";
+import {LOG_OUT} from "../../graphql/mutations/auth";
+import client from "../../apollo/client";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -18,45 +22,61 @@ const useStyles = makeStyles((theme) => ({
   title: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block',
+      display: 'flex',
+      alignItems:"center",
+      justifyContent:"center"
     },
     marginLeft:"34px",
   },
   imgs:{
-    height:"40px"
+    height:"40px",
+    width:"40px"
   },
   btn: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
+      marginRight: theme.spacing(5),
+      textDecoration: "none",
+      color: "white",
+      borderRadius: "50px",
+      height: "auto",
+      width: "auto",
+      padding: "1rem",
+      backgroundColor: "#e71575",
     },
-    marginRight: theme.spacing(5)
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      color: "#e71575",
+      textDecoration: "none",
+    }
   },
   body:{
       display:"flex",
       justifyContent:"space-between",
       alignItems:"center",
-      position:"static",
+      position:"absolute",
+      top:"20px",
       width:"100vw",
-      backgroundColor:"#ffffff",
+      backgroundColor:"transparent",
+      background:"transparent",
       padding:theme.spacing(2),
       [theme.breakpoints.down('sm')]:{
         width:"100%",
         overflowX:"hidden",
-        backgroundColor:"#fff",
-        position:"static"
+        backgroundColor:"#transparent",
+        position:"absolute"
       },
-      boxShadow: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
       overflow:'hidden',
+      zIndex:"1000"
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
+    borderRadius: "50px",
+    backgroundColor: "white",
     marginRight: theme.spacing(2),
+    color:"black",
     marginLeft: 0,
     border:"1px #f73378 solid",
     width: '100%',
@@ -73,9 +93,21 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color:"#000"
   },
   inputRoot: {
     color: 'inherit',
+    padding:".6rem",
+    width:"300px",
+    [theme.breakpoints.down('sm')]:{
+      width:"auto",
+      padding:"0"
+    }
+  },
+  hg:{
+    color:"white",
+    fontWeight:"500",
+    fontSize:"1.5rem"
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -98,12 +130,65 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  auth:{
+    display:'none',
+    [theme.breakpoints.up('sm')]:{
+      display: 'flex',
+        width: 'auto',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: '5%',
+        justifyContent: 'center',
+        marginRight:theme.spacing(5),
+        width:"150px"
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      width: 'auto',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      gap: '5%',
+      justifyContent: 'center',
+      width: "100px"
+    }
+  },
+  authBtn:{
+    display: 'none',
+      [theme.breakpoints.up('sm')]: {
+        display: 'block',
+      },
+      textDecoration: "none",
+      cursor:'pointer',
+      fontSize:'1rem',
+      color:"#fff",
+      fontWeight:"600",
+      textAlign:'center',
+      [theme.breakpoints.down('sm')]: {
+        display: 'block',
+        color: "#e71575",
+      }
+  },
+  avatar:{
+     display: 'none',
+       [theme.breakpoints.up('sm')]: {
+         display: 'block',
+       },
+       marginRight:theme.spacing(5)
+  }
 }));
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const dispatch = useDispatch();
+  const handleOpen = (val)=>{
+    // dispatch(changeIndex(parseInt(val)));
+    dispatch(authAction(true));
+  }
+  const state = useSelector(state=>state.authReducer);
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -112,6 +197,19 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleLogOut=()=>{
+    try{
+      const variables = {};
+      const response = client.request(LOG_OUT,variables);
+      if(response){
+        dispatch(authAction(true));
+        dispatch(isAuthenticated(false));
+      }
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -123,14 +221,32 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem>
+        <a className={classes.btn} href="/about">Host An Experience</a>
+      </MenuItem>
+      <MenuItem>
+        {
+              state.isAuthenticated ? (
+                <div>
+                   <p className={classes.authBtn} onClick={handleLogOut}>Log Out</p>
+                </div>
+              ):(
+                <div className={classes.auth}>
+                   <p className={classes.authBtn} onClick={handleOpen}>Log In</p>
+                   <p className={classes.authBtn} onClick={handleOpen}>Sign Up</p>
+                </div>
+              )
+            }
+      </MenuItem>
     </Menu>
   );
 
   return (
-    <div>
+    <div style={{backgroundColor:"transparent"}}>
         <div className={classes.body}>
           <div className={classes.title}>
-            <img className={classes.imgs} src={logo} alt="Host Guest" />
+            <img className={classes.imgs} src={pink} alt="Host Guest" />
+            <Typography className={classes.hg} variant="h6">HostGuest</Typography>
           </div>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -145,9 +261,31 @@ export default function PrimarySearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <div className={classes.btn}>
-              <HGButton text="Host AN Experience" />
-          </div>
+          {!matches && (
+            <>
+            <a className={classes.btn} href="/about">Host An Experience</a>
+            {
+              state.isAuthenticated ? (
+                <div>
+                   <p className={classes.authBtn} onClick={handleLogOut}>Log Out</p>
+                </div>
+              ):(
+                <div className={classes.auth}>
+                   <p className={classes.authBtn} onClick={handleOpen}>Log In</p>
+                   <p className={classes.authBtn} onClick={handleOpen}>Sign Up</p>
+                </div>
+              )
+            }
+            {
+              state.isAuthenticated && (
+                <Avatar className={classes.avatar} alt={state.userDetails.name}>
+                  {state.userDetails.name}
+                </Avatar>
+              )
+            }
+            </>
+            )
+            }
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
@@ -156,7 +294,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <MoreIcon style={{color:'white',marginRight:'2rem',fontWeight:'600',fontSize:'1.4rem'}} />
             </IconButton>
           </div>
         </div>
@@ -164,12 +302,3 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
-
-        //   <IconButton
-        //     edge="start"
-        //     className={classes.menuButton}
-        //     color="inherit"
-        //     aria-label="open drawer"
-        //   >
-        //     <MenuIcon />
-        //   </IconButton>

@@ -1,70 +1,44 @@
-import colors1 from "./components/Assets/colors1.jpg";
-import colors2 from "./components/Assets/colors2.jpg";
-import image1 from "./components/Assets/image1.jpg";
-import image2 from "./components/Assets/image2.jpg";
-import image3 from "./components/Assets/image3.jpg";
-
 const dummyExperiences = [
     {
-        img:colors1,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827952/image3_onnomy.jpg',
         text:"Explore with a local of your choice",
         title:"Beverages"
     },
     {
-        img:colors2,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827944/image2_mhysas.jpg',
         text:"Explore with a local of your choice",
         title:"Locals"
     },
     {
-        img:image1,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors2_remstc.jpg',
         text:"Explore with a local of your choice",
         title:"Exploration"
     },
     {
-        img:image2,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors1_mniwl8.jpg',
         text:"Explore with a local of your choice",
         title:"Travelling"
     },
     {
-        img:image3,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827952/image3_onnomy.jpg',
         text:"Explore with a local of your choice",
-        title:"LifeStyle"
+        title:"Beverages"
     },
     {
-        img:colors1,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827944/image2_mhysas.jpg',
         text:"Explore with a local of your choice",
-        title:"Comedy"
+        title:"Locals"
     },
     {
-        img:colors2,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors2_remstc.jpg',
         text:"Explore with a local of your choice",
-        title:"StandUp"
+        title:"Exploration"
     },
     {
-        img:image1,
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors1_mniwl8.jpg',
         text:"Explore with a local of your choice",
-        title:"Love"
+        title:"Travelling"
     },
-    {
-        img:image2,
-        text:"Explore with a local of your choice",
-        title:"Acting"
-    },
-    {
-        img:image3,
-        text:"Explore with a local of your choice",
-        title:"Music & Theater"
-    },
-    {
-        img:image2,
-        text:"Explore with a local of your choice",
-        title:"Movie"
-    },
-    {
-        img:image3,
-        text:"Explore with a local of your choice",
-        title:"Cinema"
-    }
 ]
 
 export default dummyExperiences;
