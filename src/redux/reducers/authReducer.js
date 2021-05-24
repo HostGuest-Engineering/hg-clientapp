@@ -4,7 +4,10 @@ const initialState = {
     openAuthModal:false,
     userDetails:{},
     isAuthenticated:false,
-    changeIndex:0
+    changeIndex:0,
+    message:"",
+    open:false,
+    severity:""
 }
 
 export const authReducer = (state=initialState,action)=>{
@@ -33,6 +36,14 @@ export const authReducer = (state=initialState,action)=>{
                 changeIndex:action.payload
             }
             
+        case actionTypes.ERROR_HANDLER:
+            return {
+                ...state,
+                message:action.message,
+                open:action.state,
+                severity: action.severity
+            }
+
         default:
             return state;
     }

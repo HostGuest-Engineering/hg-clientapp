@@ -19,3 +19,10 @@ export const changeIndex=payload=>({
     type: actionTypes.CHANGE_INDEX,
     payload
 });
+
+export const errorHandler = (message,state,severity)=>({
+    type: actionTypes.ERROR_HANDLER,
+    message,
+    state,
+    severity
+});

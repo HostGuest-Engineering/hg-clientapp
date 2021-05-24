@@ -1,5 +1,6 @@
 import React from 'react';
 import { fade, makeStyles,useTheme } from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -222,7 +223,8 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <a className={classes.btn} href="/about">Host An Experience</a>
+        <Link className={classes.btn} to="/become-a-host">Become a Host</Link>
+        {/* <a className={classes.btn} href="/about">Host An Experience</a> */}
       </MenuItem>
       <MenuItem>
         {
@@ -263,7 +265,8 @@ export default function PrimarySearchAppBar() {
           </div>
           {!matches && (
             <>
-            <a className={classes.btn} href="/about">Host An Experience</a>
+            {/* <a className={classes.btn} href="/about">Host An Experience</a> */}
+            <Link className={classes.btn} to="/become-a-host">Become a Host</Link>
             {
               state.isAuthenticated ? (
                 <div>
