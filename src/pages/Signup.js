@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme=>({
 }))
 
 const SignUpValidation = Yup.object().shape({
-    password: Yup.string().min(8,"Password has to longer than 8 characters").required("Please fill out this field"),
+    password: Yup.string().min(8,"Password has to be longer than 8 characters").required("Please fill out this field"),
     email: Yup.string().required("Please fill out this field"),
     confirmPassword: Yup.string().required("Please fill out this field"),
     mobile: Yup.string().required("Please fill out this field"),
