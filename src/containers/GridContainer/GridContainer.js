@@ -10,27 +10,59 @@ const useStyles = makeStyles(theme=>({
         width:'100%',
         height:'100vh',
         [theme.breakpoints.down('sm')]:{
-            // display:'block',
-            // padding:'1rem'
             gridTemplateColumns:'1fr',
             gridTemplateRows:'10% 90%',
         },
         overflow:'hidden',
         gridGap:"2%"
+    },
+    centerCreateExperienceDiv:{
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexWrap: 'nowrap',
+        height: '100vh',
+        position: 'relative',
+    },
+    createExperience:{
+        display:'grid',
+        gridTemplateColumns:'25% 75%',
+        gridTemplateRows:'1fr',
+        width:'80%',
+        height:'70vh',
+        borderRadius: '10px',
+        [theme.breakpoints.down('sm')]:{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'flex-start',
+            overflowY: 'auto',
+            flexWrap: 'nowrap',
+            height: '100vh',
+            position: 'relative',
+        },
+        background: "rgb(242, 242, 242)",
+        overflow:'hidden',
     }
 }));
 
-const GridContainer = ({children})=>{
+const GridContainer = ({children,createExperience})=>{
     const classes = useStyles();
-    return (
-        <div className={classes.parent}>
-            {children}
-        </div>
-    )
+    return createExperience ? (
+            <div className={classes.centerCreateExperienceDiv} >
+                <div className={classes.createExperience}>
+                    {children}
+                </div>
+            </div>
+            ):(
+                <div className={classes.parent}>
+                    {children}
+                </div>
+            )
 }
 
 GridContainer.propTypes = {
-    children:PropTypes.any.isRequired
+    children:PropTypes.any.isRequired,
+    createExperience:PropTypes.bool
 }
 
 export default React.memo(GridContainer);

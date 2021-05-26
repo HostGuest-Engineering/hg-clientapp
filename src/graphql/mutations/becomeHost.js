@@ -8,3 +8,12 @@ export const BecomeHost = gql `
         }
     }
 `
+
+export const CreateExperience = gql `
+    mutation createExperience($input: CreateExperienceInput!){
+        createExperience(input: $input){
+            status
+            message
+        }
+    }
+`

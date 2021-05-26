@@ -17,10 +17,6 @@ import Error from "../components/Errors";
 import {errorHandler} from "../redux/actions/authAction";
 import {BecomeHost} from "../graphql/mutations/becomeHost";
 import client from "../apollo/client";
-// import StepLabel from '@material-ui/core/StepLabel';
-// import StepContent from '@material-ui/core/StepContent';
-// import Stepper from '@material-ui/core/Stepper';
-// import Step from '@material-ui/core/Step';
 
 const BecomeHostValidation = Yup.object().shape({
     picture: Yup.string().required("Please pass this value"),
@@ -81,7 +77,6 @@ const useStyles = makeStyles(theme=>({
           marginLeft:theme.spacing(2),
           [theme.breakpoints.down('sm')]:{
               fontSize:'1rem',
-            //   height:"auto"
           }
       }
 }))
@@ -119,7 +114,7 @@ export default function BecomeAHost(){
                             const response = await client.request(BecomeHost,variables);
                             if(response){
                                 console.log(response)
-                                history.push('/experiences');
+                                history.push('/create-an-experience');
                             }
                         }catch(e){
                             console.log(e)
@@ -131,8 +126,8 @@ export default function BecomeAHost(){
                     >
                         {({submitForm,handleChange,setFieldValue,handleBlur,values,errors})=>(
                             <FormikForm>
-                                <Grid container spacing={2} justify="center" alignItems="center" >
-                                    <Grid item xs={10} sm={10} lg={10} xl={10}>
+                                <Grid container spacing={2} justify="center" alignItems="flex-start" >
+                                    <Grid item xs={values.picture !== '' ? 9:10} sm={values.picture !== '' ? 9:10} lg={values.picture !== '' ? 9:10} xl={values.picture !== '' ? 9:10}>
                                         <>
                                         <div style={{border:"1px #e71575 solid"}} className={classes.root}>
                                             <input
@@ -168,7 +163,7 @@ export default function BecomeAHost(){
                                     </Grid>
                                     {
                                         values.picture !== '' && (
-                                            <Grid style={{ marginTop: '14px' }} item xl={2} lg={2} xs={2} sm={2}>
+                                            <Grid style={{ marginTop: '14px' }} item xl={1} lg={1} xs={1} sm={1}>
                                                 <CheckIcon size="small" className={classes.uploaded} />
                                             </Grid>
                                         )
