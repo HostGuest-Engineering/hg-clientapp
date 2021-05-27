@@ -7,3 +7,8 @@ export const stepperIncrement = ()=>({
 export const stepperDecrement = () => ({
     type: actionTypes.STEPPER_DECREMENT,
 });
+
+export const stepperContent =  payload=>({
+    type:actionTypes.STEPPER_CONTENT,
+    payload
+});
