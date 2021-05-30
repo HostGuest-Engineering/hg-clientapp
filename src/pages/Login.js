@@ -2,7 +2,6 @@ import React from "react";
 import {Form as FormikForm, Formik} from "formik";
 import TextField from '@material-ui/core/TextField';
 import {useDispatch,useSelector} from "react-redux";
-import GoogleLogin from 'react-google-login';
 import * as Yup from "yup";
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/core/styles";
@@ -32,24 +31,24 @@ const LoginPage = ()=>{
     const classes = CommonStyles();
     const loginStyles = useStyles();
     const dispatch = useDispatch();
-    const state = useSelector(state=>state.authReducer);
-    const handleFailure = (err)=>{
-        console.log("could not upload",err);
-    }
+    // const state = useSelector(state=>state.authReducer);
+    // const handleFailure = (err)=>{
+    //     console.log("could not upload",err);
+    // }
 
-    const googleResponse = async (res)=>{
-        try{
-            console.log(res)
-            const variables = {
-            input :{
-                token:res.accessToken
-            }
-            }
-            const response = await client.request(OauthGoogleResolver,variables);
-        }catch(e){
-            console.log(e)
-        }
-    }
+    // const googleResponse = async (res)=>{
+    //     try{
+    //         console.log(res)
+    //         const variables = {
+    //         input :{
+    //             token:res.accessToken
+    //         }
+    //         }
+    //         const response = await client.request(OauthGoogleResolver,variables);
+    //     }catch(e){
+    //         console.log(e)
+    //     }
+    // }
     return (
         <Grid container spacing={2} alignItems="flex-start">
         <Formik

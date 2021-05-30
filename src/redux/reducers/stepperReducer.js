@@ -1,7 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    stepper:0
+    stepper:0,
+    content:{
+        imagesOfExperience:[],
+        detailsOfExperience:{}
+    }
 }
 
 export const stepperReducer = (state=initialState,action)=>{
@@ -15,6 +19,11 @@ export const stepperReducer = (state=initialState,action)=>{
             return {
                 ...state,
                 stepper:state.stepper -1
+            }
+        case actionTypes.STEPPER_CONTENT:
+            return {
+                ...state,
+                content:{...action.payload}
             }
         default:
             return state;

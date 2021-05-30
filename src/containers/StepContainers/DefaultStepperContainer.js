@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -12,9 +12,9 @@ import GridContainer from "../GridContainer/GridContainer";
 import CreateExpStepper from "./CreateExpStepper";
 
 function getSteps() {
-  return ['Add Experience Details', 'Summary', 'Success'];
+  return ['Upload Your Images', 'Add Experience Details', 'Success'];
 }
-let pinkColorArray = ['#e71575', 'ffb6b9', '#ff449f']
+// let pinkColorArray = ['#e71575', 'ffb6b9', '#ff449f']
 const useStyles = makeStyles(theme=>({
     parent:{
         background: "#ff449f",
@@ -26,7 +26,9 @@ const useStyles = makeStyles(theme=>({
         borderRadius: '10px',
     },
     stepperContent:{
-        background:"rgb(242, 242, 242)"
+        background:"rgb(242, 242, 242)",
+        overflowY:'auto',
+        overflowX:"none"
     },
     stepperNumbering:{
         background: "#ff449f",

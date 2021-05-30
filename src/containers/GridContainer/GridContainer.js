@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme=>({
         flexWrap: 'nowrap',
         height: '100vh',
         position: 'relative',
+        background: "#faf3f3"
     },
     createExperience:{
         display:'grid',

@@ -346,7 +346,7 @@ export default function Home(){
                     </Typography>
                     <Grid container alignItems="center" spacing={2} justify="center" className={classes.callToAction}>
                         <PlayArrowIcon style={{color:"#fff",marginRight:"10px"}} />
-                        <a className={classes.btn} href="/about">Book Experience</a>
+                        <Link className={classes.btn} to="/create-an-experience">Host Experience</Link>
                     </Grid>
                 </Grid>
             </Grid>

@@ -7,7 +7,7 @@ export default function NotFound(){
     return (
         <Grid container spacing={2} alignItems="center">
             <Grid item >
-                <Typography>Wrong Place, <Link to="/experiences">Go Back</Link></Typography>
+                <Typography>Wrong Place, <Link to="/">Go Back</Link></Typography>
             </Grid>
         </Grid>
     )

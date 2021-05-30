@@ -81,10 +81,11 @@ const useStyles = makeStyles(theme=>({
       }
 }))
 
-export default function BecomeAHost(){
+function BecomeAHost(){
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+
     return (
         <GridContainer>
             <Grid className={classes.leftPanel} container spacing={2} alignItems="center" justify="center">
@@ -238,5 +239,4 @@ export default function BecomeAHost(){
         </GridContainer>
     )
 }
-
-// export default React.memo(BecomeAHost);
+export default React.memo(BecomeAHost);
