@@ -1,44 +1,35 @@
-import {Route,withRouter} from "react-router-dom";
-import PropTypes from "prop-types";
-import {useDispatch} from "react-redux";
-import client from "../apollo/client";
-import {USER_DETAILS} from "../graphql/mutations/auth";
-import {errorHandler} from "../redux/actions/authAction";
+// import React from "react";
+// import {Route,withRouter} from "react-router-dom";
+// import PropTypes from "prop-types";
+// import {useDispatch,useSelector} from "react-redux";
+// import CircularProgress from '@material-ui/core/CircularProgress'
+// import client from "../apollo/client";
+// import {USER_DETAILS} from "../graphql/mutations/auth";
+// import {errorHandler} from "../redux/actions/authAction";
 
 
-const AuthenticatedRoute =(props)=>{
-    // const dispatch = useDispatch();
-    // let variables = {};
-    // let data;
-    // try{
-    //     data = await client.request(USER_DETAILS, variables);
-    // } catch (e) {
-    //     dispatch(errorHandler("You need to be logged in", true, "warning"))
-    // }
+// function AuthenticatedRoute({component:Component,path}){
+//     const dispatch = useDispatch();
+//     const state = useSelector(state=>state.authReducer);
+//     console.log(state)
 
-    // const redirectToLoginPage = ()=>{
-    //     dispatch(errorHandler("You need to be logged in",true,"warning"))
-    //     //return <Redirect to="/experiences"/>
-    // }
-    return (
+//     return (
 
-        <Route 
-            path={props.path}
-            component={props.Component}
-            // render={() =>{
-            //      data ?
-            //         (<props.Component 
-            //             data={data}
-                        
-            //         />)
-            //         :(redirectToLoginPage())
-            // }}
-        />
-    )
-}
+//         <Route path={path}>
+//             {
+//                 state.isAuthenticated ? (
+//                     <Component />
+//                 ):(
+//                     <p>Please login to proceed</p>
+//                 )
+//             }
+//         </Route>
+//     )
+// }
 
-AuthenticatedRoute.propTypes = {
-    Component:PropTypes.any.isRequired,
+// AuthenticatedRoute.propTypes = {
+//     Component:PropTypes.any,
+//     path:PropTypes.string
 
-}
-export default withRouter(AuthenticatedRoute);
+// }
+// export default withRouter(AuthenticatedRoute);

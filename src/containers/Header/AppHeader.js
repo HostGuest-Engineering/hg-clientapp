@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles,useTheme } from '@material-ui/core/styles';
+import {makeStyles,useTheme } from '@material-ui/core/styles';
 import {Link} from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Avatar from '@material-ui/core/Avatar';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import pink from "../../components/Assets/pink.png";
-import {authAction,isAuthenticated,changeIndex} from "../../redux/actions/authAction";
+import {authAction,isAuthenticated} from "../../redux/actions/authAction";
 import {LOG_OUT} from "../../graphql/mutations/auth";
 import client from "../../apollo/client";
 
@@ -135,7 +135,6 @@ const useStyles = makeStyles((theme) => ({
     display:'none',
     [theme.breakpoints.up('sm')]:{
       display: 'flex',
-        width: 'auto',
         flexDirection: 'row',
         alignItems: 'center',
         gap: '5%',
@@ -145,7 +144,6 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
-      width: 'auto',
       flexDirection: 'column',
       alignItems: 'flex-start',
       gap: '5%',

@@ -52,6 +52,10 @@ const useStyles = makeStyles(theme=>({
     },
     textFileName:{
         marginTop:theme.spacing(1)
+    },
+    addIcon: {
+        border: '1px solid #faf3f3',
+        background: "#fff",
     }
 }))
 
@@ -73,9 +77,10 @@ const CreateExperience = ()=>{
                         }}
 
                         onSubmit={(values)=>{
+                            console.log(values)
                             dispatch(stepperContent({
                                 imagesOfExperience:values.imagesOfExperience,
-                                detailsOfExperience: content.detailsOfExperience !== (null || undefined || "") ? content.detailsOfExperience : {}
+                                detailsOfExperience: content.detailsOfExperience !== (null || undefined || "") ? {...content.detailsOfExperience} : {}
                             }));
                             dispatch(stepperIncrement());
                         }}

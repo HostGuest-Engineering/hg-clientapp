@@ -3,7 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     stepper:0,
     content:{
-        imagesOfExperience:"",
+        imagesOfExperience:[],
         detailsOfExperience:{}
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -14,7 +14,7 @@ import CreateExpStepper from "./CreateExpStepper";
 function getSteps() {
   return ['Upload Your Images', 'Add Experience Details', 'Success'];
 }
-let pinkColorArray = ['#e71575', 'ffb6b9', '#ff449f']
+// let pinkColorArray = ['#e71575', 'ffb6b9', '#ff449f']
 const useStyles = makeStyles(theme=>({
     parent:{
         background: "#ff449f",
