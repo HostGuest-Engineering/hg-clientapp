@@ -53,8 +53,7 @@ function SuccessPage (){
             <Grid className={classes.successDiv} container direction="column" spacing={2} alignItems="center" justify="center">
                 <Grid item>
                     <Typography variant="body1">
-                        Thank you for creating an experience. 
-                        We have received your application and we will notify you of your progress within 2 working days.
+                        Click Submit To Upload Your Information
                     </Typography>
                 </Grid>
                 <Grid container alignItems="center" justify="center" style={{padding:"0"}}>
