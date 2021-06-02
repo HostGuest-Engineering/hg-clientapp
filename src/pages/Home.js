@@ -275,11 +275,12 @@ const useStyles = makeStyles(theme=>({
     }
 }));
 
-var settings = {
+const settings = {
       dots: false,
       infinite: false,
       speed: 0,
       slidesToShow: 5,
+      arrows:false,
       slidesToScroll: 3,
       initialSlide: 0,
       responsive: [
@@ -361,11 +362,11 @@ export default function Home(){
             <div style={{display:"block"}}>
             {
                 !matches && (
-                <Grid item >
-                <IconButton onClick={prev} aria-label="prev" className={classes.carouselLeftIcon} size="small">
-                    <ChevronLeftIcon fontSize="inherit" />
-                </IconButton>
-                </Grid>
+                    <Grid item >
+                        <IconButton onClick={prev} aria-label="prev" className={classes.carouselLeftIcon} size="small">
+                            <ChevronLeftIcon fontSize="inherit" />
+                        </IconButton>
+                    </Grid>
                 )
             }
                 

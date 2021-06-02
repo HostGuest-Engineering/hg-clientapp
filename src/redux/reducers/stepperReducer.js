@@ -25,6 +25,11 @@ export const stepperReducer = (state=initialState,action)=>{
                 ...state,
                 content:{...action.payload}
             }
+        case actionTypes.RESET_STEPPER:
+            return {
+                ...state,
+                stepper:0
+            }
         default:
             return state;
     }

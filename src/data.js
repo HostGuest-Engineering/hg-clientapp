@@ -41,4 +41,9 @@ const dummyExperiences = [
     },
 ]
 
+//lets do a quick filter
+//we want to return only the first 6 images for the sake of the grid design
+
+export const sixImagesWeWant = dummyExperiences.filter((item,index)=>index<=5);
+
 export default dummyExperiences;

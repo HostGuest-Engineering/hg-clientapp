@@ -13,7 +13,7 @@ const FilesDropZone = ({setFieldValue,classes,errors})=>{
     const dispatch = useDispatch();
     const content = useSelector(state => state.stepperReducer.content);
     const handleDrop = React.useCallback((acceptedFiles)=>{
-        if(acceptedFiles.length <= 6 && content.imagesOfExperience.length <=6){
+        if(acceptedFiles.length >= 6 && content.imagesOfExperience.length <=6){
             setFieldValue('imagesOfExperience',acceptedFiles,false);
             dispatch(stepperContent({
                 imagesOfExperience:[...acceptedFiles],
@@ -21,7 +21,7 @@ const FilesDropZone = ({setFieldValue,classes,errors})=>{
             }))
         }
         else{
-            dispatch(errorHandler("Please upload 6 or less images",true,'warning'));
+            dispatch(errorHandler("Please upload 6 or more images",true,'warning'));
             setFieldValue('imagesOfExperience', [], false);
             dispatch(stepperContent({
                 imagesOfExperience: [],

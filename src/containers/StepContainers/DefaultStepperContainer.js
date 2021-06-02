@@ -88,7 +88,7 @@ const DefaultStepperContainer = ()=>{
                 <Typography>
                     Create Experience
                 </Typography>
-                <Stepper activeStep={stepCounter} orientation="vertical">
+                <Stepper style={{background:"#ff449f"}} activeStep={stepCounter} orientation="vertical">
 
                     {steps.map((label) => (
                     <Step key={shortId.generate()}>

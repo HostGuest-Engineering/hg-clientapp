@@ -8,7 +8,9 @@ import {Formik,Form as FormikForm} from "formik";
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import DatePicker,{DateObject} from "react-multi-date-picker";
+import DayPicker from 'react-day-picker';
+import differenceInMinutes from 'date-fns/differenceInMinutes';
+import 'react-day-picker/lib/style.css'
 import TextField from '@material-ui/core/TextField';
 import Typography from "@material-ui/core/Typography";
 import FormControl from '@material-ui/core/FormControl';
@@ -21,12 +23,12 @@ import Navigation from "../../components/StepperNavigation";
 import Error from "../../components/Errors";
 import hostguestCategories,{handleSubCategories} from "../../utils/hostguestCategories";
 
+
 const AddExperienceDetailsValidation = Yup.object().shape({
     nameOfExperience: Yup.string().required("Please fill out this field"),
     descriptionOfExperience: Yup.string().required("Please fill out this field"),
     numberOfPeopleAllowed: Yup.number().max(45,"Number Of People Allowed needs to be less than or equal to 45").required("Please fill out this field"),
     price: Yup.number().required("Please fill out this field"),
-    duration: Yup.string().required("Please fill out this field"),
     category: Yup.string().required("Please fill out this field"),
     subcategory:Yup.string().when('category',{
         is:val=>val !== (null || undefined || ""),
@@ -119,29 +121,57 @@ const AddExperienceDetails = ()=>{
     const classes = useStyles();
     const dispatch = useDispatch();
     const content = useSelector(state => state.stepperReducer.content);
-    const today = new Date();
-    const setInitialDates = _.isEmpty(content.detailsOfExperience) ? [today] : content.detailsOfExperience.datesOfExperience;
+    const setInitialDates = _.isEmpty(content.detailsOfExperience) ? [] : content.detailsOfExperience.datesOfExperience;
     const setInitialGuestBrings = _.isEmpty(content.detailsOfExperience) ? [] : content.detailsOfExperience.userBrings;
     const setInitialSubCat = _.isEmpty(content.detailsOfExperience) ? "" : content.detailsOfExperience.category ;
-    const [value, setValues] = React.useState(setInitialDates);
+    /**
+     * remember to change the following states to useReducer because its getting messy
+     */
+    const [value, setValues] = React.useState('');
     const [guestBrings,setGuestBrings] = React.useState('');
     const [newV, setNewV] = React.useState(setInitialGuestBrings);
-    console.log(new DateObject(value, 'DD-MM-YYYY').format());
     const [subCat, setSubCat] = React.useState(setInitialSubCat);
-    
-    const dateChange = React.useCallback((e)=>{
-        setValues(new DateObject(e, 'DD-MM-YYYY').format())
+    const [timeStart,setTimeStart] = React.useState("");
+    const [timeEnd,setTimeEnd] = React.useState("");
+    const [bookingDate,setBookingDate] = React.useState(setInitialDates);
+    const [dateErrors,setErrors] = React.useState({error:false,message:""});
+    const [timeDifference, setTimeDifference] = React.useState(null);
+
+    const handleSubmitDatesOfExperience = ()=>{
+        dispatch(errorHandler('Please make sure that dates and time of experiece are filled',true,'warning'))
+    }
+    const handleAddDates =React.useCallback(()=>{
+        //lets get all the data into one object then pass that object to setBookingDate
+        if(timeStart === (null || undefined || "") || timeEnd === (null || undefined || "") || value === (null || undefined || "")){
+            dispatch(errorHandler('Please make sure all the fields are passed',true,'warning'))
+        }else{
+            let bookingObject = {
+                day:value,
+                startTime:timeStart,
+                endTime:timeEnd,
+                timeDifference
+            }
+            //now add this to the state
+            setBookingDate([...bookingDate,bookingObject]);
+            setTimeStart('');
+            setTimeEnd('');
+            setValues(new Date());
+        }
+    },[value,timeStart,timeEnd,bookingDate])
+    const dateChange = React.useCallback((day)=>{
+        setValues(day)
     },[value])
 
-    const handleGChange =(e)=>{
+    const handleGChange =React.useCallback((e)=>{
         setGuestBrings(e.target.value);
-    }
+    },[guestBrings])
 
     const handleGuestBrings = React.useCallback((e)=>{
         if(_.isEmpty(guestBrings)){
             dispatch(errorHandler("Please add an item",true,'warning'));
         }else{
             setNewV([...newV,guestBrings]);
+            setGuestBrings("");
         }
     },[guestBrings,newV])
 
@@ -149,6 +179,31 @@ const AddExperienceDetails = ()=>{
         newV.splice(index,1);
         return setNewV([...newV])
     }
+    const handleRemoveDateObject = index=>{
+        bookingDate.splice(index,1);
+        return setBookingDate([...bookingDate])
+    }
+    const handleCheckEndTimeIsGreaterThanStart = (after, before) => {
+        let endTimeDate = new Date();
+        let endHours = after.split(":");
+        endTimeDate.setHours(endHours[0], endHours[1],"00",0)
+
+        let startTimeDate = new Date();
+        let startHours = before.split(":");
+        startTimeDate.setHours(startHours[0],startHours[1],"00",0)
+
+        let differenceInTime = differenceInMinutes(endTimeDate,startTimeDate);
+        setTimeDifference(differenceInTime);
+        return after > before;
+    }
+    const dateField = {
+        padding:".8rem",
+        borderRadius: 35,
+        outline:"none",
+        border: "1px #faf3f3 solid",
+        width: '100%',
+    }
+
     const subCatArray = handleSubCategories(subCat);
     return (
         <Grid className={classes.mainDiv} container direction="column" alignItems="center" justify="center" spacing={2}>
@@ -161,7 +216,6 @@ const AddExperienceDetails = ()=>{
                             descriptionOfExperience: content.detailsOfExperience.descriptionOfExperience !== (null || undefined || "") ? content.detailsOfExperience.descriptionOfExperience : "",
                             numberOfPeopleAllowed: content.detailsOfExperience.numberOfPeopleAllowed !== (null || undefined || "") ? content.detailsOfExperience.numberOfPeopleAllowed : "",
                             price: content.detailsOfExperience.price !== (null || undefined || "") ? content.detailsOfExperience.price : "",
-                            duration:content.detailsOfExperience.duration !== (null || undefined || "") ? content.detailsOfExperience.duration:"",
                             category: content.detailsOfExperience.category !== (null || undefined || "") ? content.detailsOfExperience.category : "",
                             subcategory: content.detailsOfExperience.subcategory !== (null || undefined || "") ? content.detailsOfExperience.subcategory : ""
                         }}
@@ -174,10 +228,9 @@ const AddExperienceDetails = ()=>{
                                     descriptionOfExperience:values.descriptionOfExperience,
                                     numberOfPeopleAllowed:values.numberOfPeopleAllowed,
                                     price:values.price,
-                                    duration:values.duration,
                                     category:values.category,
                                     userBrings: newV,
-                                    datesOfExperience:value,
+                                    datesOfExperience: bookingDate,
                                     subcategory: values.subcategory
                                 }
                             }));
@@ -225,7 +278,7 @@ const AddExperienceDetails = ()=>{
                                         <Error error={errors.descriptionOfExperience} />
                                         </>
                                     </Grid>
-                                    <Grid className={classes.gridItem} item xl={4} lg={4} sm={12} xs={12}>
+                                    <Grid className={classes.gridItem} item xl={6} lg={6} sm={12} xs={12}>
                                         <>
                                         <TextField
                                             label="Number Of People Expected"
@@ -243,7 +296,7 @@ const AddExperienceDetails = ()=>{
                                         <Error error={errors.numberOfPeopleAllowed} />
                                         </>
                                     </Grid>
-                                    <Grid className={classes.gridItem} item xl={4} lg={4} sm={12} xs={12}>
+                                    <Grid className={classes.gridItem} item xl={6} lg={6} sm={12} xs={12}>
                                         <>
                                         <TextField
                                             label="Price in KES"
@@ -261,38 +314,88 @@ const AddExperienceDetails = ()=>{
                                         <Error error={errors.price} />
                                         </>
                                     </Grid>
-                                    <Grid className={classes.gridItem} item xl={4} lg={4} sm={12} xs={12}>
-                                        <>
-                                        <TextField
-                                            label="How Long Will The Experience Last?"
-                                            value={values.duration}
-                                            autoComplete="off"
-                                            error={Boolean(errors.duration)}
-                                            className={classes.textField}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            type="text"
-                                            name="duration"
-                                            margin="dense"
-                                            variant="outlined"
-                                        />
-                                        <Error error={errors.duration} />
-                                        </>
-                                    </Grid>
-                                    <Grid className={classes.gridItem} item xl={6} lg={6} sm={12} xs={12}>
+                                    <Grid className={classes.gridItem} item xl={5} lg={5} sm={12} xs={12}>
                                         <>
                                         <InputLabel className={classes.datePickerLabel} htmlFor="datepicker">Select Dates Of Experience</InputLabel>
-                                        <DatePicker 
-                                            multiple
-                                            value={value} 
-                                            onChange={(e)=>dateChange(e)}
-                                            minDate={new Date()}
-                                            inputClass={classes.dateField}
-                                            calenderPosition="bottom"
-                                            id="datepicker"
+                                        <DayPicker
+                                            selectedDays={value}
+                                            onDayClick={dateChange}
+                                            disabledDays={[{before: new Date()}]}
+                                            style={dateField}
+                                            id = "datepicker"
                                         />
                                         </>
                                     </Grid>
+                                    <Grid item className={classes.gridItem} item xl={3} lg={3} sm={12} xs={12}>
+                                        <>
+                                         <TextField
+                                            id="start-time"
+                                            label="Start Time"
+                                            type="time"
+                                            defaultValue="07:30"
+                                            className={classes.textField}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            inputProps={{
+                                                step: 300, 
+                                            }}
+                                            value={timeStart}
+                                            onChange={(e)=>setTimeStart(e.target.value)}
+                                            name="start-time"
+                                        />
+                                        </>
+                                    </Grid>
+                                    <Grid item className={classes.gridItem} item xl={3} lg={3} sm={9} xs={9}>
+                                        <>
+                                         <TextField
+                                            id="end-time"
+                                            label="End Time"
+                                            type="time"
+                                            defaultValue="08:30"
+                                            className={classes.textField}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            inputProps={{
+                                                step: 300, 
+                                            }}
+                                            value={timeEnd}
+                                            onChange={(e)=>{
+                                                if(handleCheckEndTimeIsGreaterThanStart(e.target.value,timeStart)){
+                                                    setTimeEnd(e.target.value)
+                                                    setErrors({error:false,message:""})
+                                                }else{
+                                                    setErrors({error:true,message:"Please pass a time greater than the start time"})
+                                                    setTimeEnd("")
+                                                }
+                                            }}
+                                            name="end-time"
+                                        />
+                                        <Error error={dateErrors.error ? dateErrors.message : null} />
+                                        </>
+                                    </Grid>
+                                    <Grid item item xl={1} lg={1} sm={1} xs={1}>
+                                        <IconButton className={classes.addIcon} onClick={(e)=>handleAddDates(e)} size="medium" color="secondary" aria-label="add to list">
+                                            <AddIcon />
+                                        </IconButton>
+                                    </Grid>
+                                    {
+                                        bookingDate.length > 0 && Array.isArray(bookingDate) && (
+                                            <ul>
+                                                {
+                                                    bookingDate.map(({day,startTime,endTime,index})=>(
+                                                        <Grid key={index} style={{marginBottom:".7rem"}} container alignItems="flex-start" spacing={2}>
+                                                            <li>{new Date(day).toLocaleDateString()} {startTime} {endTime}</li>
+                                                            <IconButton style={{fontSize:".7rem",marginLeft:".5rem",padding:"0"}} className={classes.addIcon} onClick={()=>handleRemoveDateObject(index)} size="small" color="secondary" aria-label="add to list">
+                                                                <DeleteOutlineIcon size="inherit" />
+                                                            </IconButton>
+                                                        </Grid>
+                                                    ))
+                                                }
+                                            </ul>
+                                        )
+                                    }
                                     <Grid style={{ marginTop: '15px' }} item xl={12} lg={12} xs={12} sm={12}>
                                         <>
                                             <FormControl variant="outlined" className={classes.textField} error={Boolean(errors.category)}>
@@ -355,7 +458,7 @@ const AddExperienceDetails = ()=>{
                                             </Grid>
                                         )}
                                         </Grid>
-                                    <Grid className={classes.gridItem} item xl={11} lg={11} sm={11} xs={11}>
+                                    <Grid className={classes.gridItem} item xl={11} lg={11} sm={9} xs={9}>
                                         <>
                                             <TextField
                                                 label="What should the guest's bring?"
@@ -394,7 +497,7 @@ const AddExperienceDetails = ()=>{
                                 </Grid>
                                 <Grid container alignItems="flex-end" justify="flex-end" style={{padding:"0"}}>
                                     <Navigation start back text="Back" />
-                                    <Navigation next={submitForm} text="Next" />
+                                    <Navigation next={bookingDate === (null || undefined || []) ? handleSubmitDatesOfExperience : submitForm} text="Next" />
                                 </Grid>
                             </FormikForm>
                         )}
