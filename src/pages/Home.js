@@ -335,7 +335,7 @@ export default function Home(){
             <Header />
             <AuthPage />
             <Grid item xl={12} lg={12} sm={12} xs={12}>
-                <img className={classes.heroImage} src='https://res.cloudinary.com/liveservers/image/upload/v1621827944/fun_glbjec.jpg' alt="people having fun" />
+                <img className={classes.heroImage} src='https://res.cloudinary.com/liveservers/image/upload/v1622625003/qmod7neczc4yhst4p4zh.jpg' alt="people having fun" />
             </Grid>
             <Grid item lg={12} xl={12} sm={12} xs={12}>
                 <Grid className={classes.centerImageText} container>
