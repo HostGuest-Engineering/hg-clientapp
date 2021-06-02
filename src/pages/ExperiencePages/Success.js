@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Navigation from "../../components/StepperNavigation";
 import client from "../../apollo/client";
 import {CREATE_EXPERIENCE} from "../../graphql/mutations/createExperience";
+import {stepperContent,resetStepper} from "../../redux/actions/stepperAction";
 import {errorHandler} from "../../redux/actions/authAction"; 
 
 const useStyles = makeStyles(theme=>({
@@ -19,8 +20,11 @@ const useStyles = makeStyles(theme=>({
         textAlign:"center"
     },
     successDiv:{
-        background: "#faf3f3",
-        padding:"2rem"
+        padding:"2rem",
+        [theme.breakpoints.down('sm')]:{
+            background: "#ff449f",
+            color:"white"
+        }
     }
 }))
 
@@ -29,6 +33,7 @@ function SuccessPage (){
     const content = useSelector(state => state.stepperReducer.content);
     const dispatch = useDispatch();
     const history = useHistory();
+    console.log(content)
     const handleSubmit =async ()=>{
         //this is where uploading logic will be
         try{
@@ -41,8 +46,12 @@ function SuccessPage (){
             const result = await client.request(CREATE_EXPERIENCE, variables);
             if(result){
                 history.push('/');
+                dispatch(stepperContent({
+                    imagesOfExperience:[],
+                    detailsOfExperience:{}
+                }))
+                dispatch(resetStepper());
             }
-            console.log(result)
         }
         catch(e){
             dispatch(errorHandler("Could not upload your information",true,'error'));
@@ -56,7 +65,7 @@ function SuccessPage (){
                         Click Submit To Upload Your Information
                     </Typography>
                 </Grid>
-                <Grid container alignItems="center" justify="center" style={{padding:"0"}}>
+                <Grid container wrap="nowrap" alignItems="center" justify="center" style={{padding:"0"}}>
                     <Navigation start back text="Back" />
                     <Navigation next={handleSubmit} text="Submit" />
                 </Grid>

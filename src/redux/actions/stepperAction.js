@@ -12,3 +12,7 @@ export const stepperContent =  payload=>({
     type:actionTypes.STEPPER_CONTENT,
     payload
 });
+
+export const resetStepper = ()=>({
+    type: actionTypes.RESET_STEPPER
+});

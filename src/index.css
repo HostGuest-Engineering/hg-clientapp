@@ -6,7 +6,13 @@ body {
   overflow-x: hidden;
   font-family: 'Nunito', sans-serif;
 }
-
+.center-content{
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  gap:2%;
+}
 @font-face {
   font-family: 'Nunito-Regular';
   font-weight: 400;
@@ -29,4 +35,69 @@ body {
   font-family: 'Nunito-SemiBold';
   font-weight: 600;
   src: local('Nunito'), url(./fonts/Nunito-SemiBold.ttf) format('truetype');
+}
+.container {
+  position: relative;
+  max-width: 90vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-rows: minmax(100px, auto);
+  grid-auto-flow: dense;
+  grid-gap: 2px;
+}
+
+.container .box {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #fff;
+  transition: .5s;
+  max-width:400px;
+}
+
+
+.container .box img {
+  position: relative;
+  max-width: 400px;
+}
+.container .box:nth-child(1) img {
+    border-radius: 5px 0 0 5px;
+}
+.container .box:nth-child(3) img {
+    border-radius:0 5px 5px 0;
+}
+.container .box:nth-child(4) img {
+ border-radius: 5px 0 0 5px;
+}
+.container .box:nth-child(6) img {
+  border-radius:0 5px 5px 0;
+}
+
+.container .box:nth-child(1) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.container .box:nth-child(2) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.container .box:nth-child(3) {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.container .box:nth-child(4) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.container .box:nth-child(5) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+.container .box:nth-child(6) {
+  grid-column: span 1;
+  grid-row: span 1;
 }

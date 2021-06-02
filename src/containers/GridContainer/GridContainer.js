@@ -34,10 +34,10 @@ const useStyles = makeStyles(theme=>({
         borderRadius: '10px',
         [theme.breakpoints.down('sm')]:{
             display: 'flex',
-            justifyContent: 'space-around',
             alignItems: 'flex-start',
             overflowY: 'auto',
             flexWrap: 'nowrap',
+            width:"100%",
             height: '100vh',
             position: 'relative',
         },

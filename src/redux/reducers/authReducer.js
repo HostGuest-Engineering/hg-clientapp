@@ -7,7 +7,7 @@ const initialState = {
     changeIndex:0,
     message:"",
     open:false,
-    severity:""
+    severity:"warning"
 }
 
 export const authReducer = (state=initialState,action)=>{
