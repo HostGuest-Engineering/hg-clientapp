@@ -1,41 +1,41 @@
 const dummyExperiences = [
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827952/image3_onnomy.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622648220/dagoxqqocltzbhj50wz9.jpg',
         text:"Explore with a local of your choice",
         title:"Beverages"
     },
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827944/image2_mhysas.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622648205/mxpvgo8icrqsodmi6hhg.jpg',
         text:"Explore with a local of your choice",
         title:"Locals"
     },
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors2_remstc.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622648187/ycz3nrnqzbpawwhuvcru.jpg',
         text:"Explore with a local of your choice",
         title:"Exploration"
     },
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors1_mniwl8.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622624342/zjyt8pjtaac0alegttgj.jpg',
         text:"Explore with a local of your choice",
         title:"Travelling"
     },
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827952/image3_onnomy.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622648187/ycz3nrnqzbpawwhuvcru.jpg',
         text:"Explore with a local of your choice",
         title:"Beverages"
     },
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827944/image2_mhysas.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622459396/xkauttjqatq8zqr9zeeu.jpg',
         text:"Explore with a local of your choice",
         title:"Locals"
     },
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors2_remstc.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622625003/qmod7neczc4yhst4p4zh.jpg',
         text:"Explore with a local of your choice",
         title:"Exploration"
     },
     {
-        img: 'https://res.cloudinary.com/liveservers/image/upload/v1621827943/colors1_mniwl8.jpg',
+        img: 'https://res.cloudinary.com/liveservers/image/upload/v1622459400/ocrvwe1aoqupphaogvbe.jpg',
         text:"Explore with a local of your choice",
         title:"Travelling"
     },
