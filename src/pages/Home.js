@@ -234,6 +234,8 @@ const useStyles = makeStyles(theme=>({
         height:"80vh",
         backgroundSize:"cover",
         backgroundPosition:"center center",
+        objectFit:"cover",
+        objectPosition:"top"
     },
     callToAction:{
         backgroundColor:"#e71575",
@@ -305,7 +307,7 @@ const settings = {
         {
           breakpoint: 480,
           settings: {
-            slidesToShow: 1,
+            slidesToShow: 1.2,
             slidesToScroll: 1,
             swipeToSlide: true,
             
@@ -454,7 +456,7 @@ export default function Home(){
                     {
                         dummyExperiences.map(({img,text,index})=>(
                             <div key={index}>
-                            <Card style={{maxWidth:"300px"}} >
+                            <Card style={{maxWidth:"300px"}} className={classes.carouselCard}>
                                 <CardActionArea>
                                     <CardMedia
                                     component="div"
@@ -586,10 +588,10 @@ export default function Home(){
                         </Grid>
                         <Grid style={{marginTop:"2rem",marginBottom:"2rem"}} container alignItems="center" gap={2} spacing={2} justify="center" direction="row" wrap="wrap">
                             <Grid item>
-                                <a className={classes.callToAction} style={{textDecoration:"none",color:"white",textAlign:"center",padding:"1rem"}} href="/experience">Book Experience</a>
+                                <Link className={classes.callToAction} style={{textDecoration:"none",color:"white",textAlign:"center",padding:"1rem"}} to="/become-a-host">Become A Host</Link>
                             </Grid>
                             <Grid item>
-                                <a className={classes.lastCallToAction} style={{textDecoration:"none",color:"white",textAlign:"center",padding:"1rem"}} href="/book">Host An Experience</a>
+                                <Link className={classes.lastCallToAction} style={{textDecoration:"none",color:"white",textAlign:"center",padding:"1rem"}} to="/create-an-experience">Host Experience</Link>
                             </Grid>
                         </Grid>
             </Grid>

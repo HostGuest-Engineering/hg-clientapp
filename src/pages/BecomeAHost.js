@@ -22,7 +22,7 @@ const BecomeHostValidation = Yup.object().shape({
     picture: Yup.string().required("Please pass this value"),
     hostBrand: Yup.string().required("Please pass this value"),
     location: Yup.string().required("Please pass this value"),
-    aboutSelf: Yup.string().required("Please pass this value")
+    aboutSelf: Yup.string().min(200, "Please describe yourself in not less than 200 words").required("Please pass this value")
 });
 
 const useStyles = makeStyles(theme=>({
@@ -215,6 +215,10 @@ function BecomeAHost(){
                                             className={classes.textField}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
+                                            multiline
+                                            rows = {
+                                                7
+                                            }
                                             type="text"
                                             name="aboutSelf"
                                             margin="dense"

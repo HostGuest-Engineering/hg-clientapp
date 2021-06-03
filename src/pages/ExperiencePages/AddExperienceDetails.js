@@ -1,7 +1,8 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import * as Yup from "yup";
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles,useTheme} from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import InputLabel from '@material-ui/core/InputLabel';
 import {useDispatch,useSelector} from "react-redux";
 import {Formik,Form as FormikForm} from "formik";
@@ -26,7 +27,7 @@ import hostguestCategories,{handleSubCategories} from "../../utils/hostguestCate
 
 const AddExperienceDetailsValidation = Yup.object().shape({
     nameOfExperience: Yup.string().required("Please fill out this field"),
-    descriptionOfExperience: Yup.string().required("Please fill out this field"),
+    descriptionOfExperience: Yup.string().min(300,"Please describe this experience in not less than 300 words").required("Please fill out this field"),
     numberOfPeopleAllowed: Yup.number().max(45,"Number Of People Allowed needs to be less than or equal to 45").required("Please fill out this field"),
     price: Yup.number().required("Please fill out this field"),
     category: Yup.string().required("Please fill out this field"),
@@ -40,7 +41,10 @@ const useStyles = makeStyles(theme=>({
     headerText:{
         fontWeight:"600",
         fontSize:'1.5rem',
-        padding:"24px"
+        padding:"24px",
+        [theme.breakpoints.down('sm')]:{
+            color:"white"
+        }
     },
     subExpDiv: {
         width:"100%",
@@ -124,6 +128,8 @@ const AddExperienceDetails = ()=>{
     const setInitialDates = _.isEmpty(content.detailsOfExperience) ? [] : content.detailsOfExperience.datesOfExperience;
     const setInitialGuestBrings = _.isEmpty(content.detailsOfExperience) ? [] : content.detailsOfExperience.userBrings;
     const setInitialSubCat = _.isEmpty(content.detailsOfExperience) ? "" : content.detailsOfExperience.category ;
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down('sm'));
     /**
      * remember to change the following states to useReducer because its getting messy
      */
@@ -206,7 +212,7 @@ const AddExperienceDetails = ()=>{
 
     const subCatArray = handleSubCategories(subCat);
     return (
-        <Grid className={classes.mainDiv} container direction="column" alignItems="center" justify="center" spacing={2}>
+        <Grid className={classes.mainDiv} container direction="column" alignItems={matches ? "flex-start" : "center"} justify="center" spacing={2}>
             <Grid item>
                 <Typography className={classes.headerText}>Add Experience Details</Typography>
             </Grid>
@@ -270,6 +276,10 @@ const AddExperienceDetails = ()=>{
                                             className={classes.textField}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
+                                            multiline
+                                            rows = {
+                                                7
+                                            }
                                             type="text"
                                             name="descriptionOfExperience"
                                             margin="dense"

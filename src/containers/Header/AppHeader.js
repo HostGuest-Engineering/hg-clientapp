@@ -67,7 +67,8 @@ const useStyles = makeStyles((theme) => ({
         width:"100%",
         overflowX:"hidden",
         backgroundColor:"#transparent",
-        position:"absolute"
+        position:"absolute",
+        padding:"0"
       },
       overflow:'hidden',
       zIndex:"1000"
@@ -78,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     marginRight: theme.spacing(2),
     color:"black",
-    marginLeft: 0,
+    marginLeft: "20px",
     border:"1px #f73378 solid",
     width: '100%',
     [theme.breakpoints.up('sm')]: {
