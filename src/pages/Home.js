@@ -1,10 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {Link} from "react-router-dom";
+import {Link,useHistory} from "react-router-dom";
 import {makeStyles,useTheme} from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-// import {useDispatch} from "react-redux";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,9 +12,6 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import Slider from "react-slick";
-// import StarOutlineIcon from '@material-ui/icons/StarOutline';
-// import StarIcon from '@material-ui/icons/Star';
-// import Rating from "react-rating";
 import ReactStars from "react-rating-stars-component";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -24,14 +20,10 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-// import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia'; 
-// import {HGButton} from "../components/Button";
-import fun from "../components/Assets/fun.jpg";
 import Header from "../containers/Header/AppHeader";
 import dummyExperiences from "../data";
 import AuthPage from "../containers/Auth/Auth";
-// import {authAction} from "../../redux/action/authAction";
 
 const useStyles = makeStyles(theme=>({
     main:{
@@ -328,8 +320,8 @@ export default function Home(){
     const prev = () => ts.slickPrev();
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.down('sm'));
-    // const dispatch = useDispatch();
-    // const handleOpen = ()=>dispatch(authAction(true));
+    const history = useHistory();
+    const handleNext = ()=>history.push("/view-experience")
     return (
         <>
         <div className={classes.main}>
@@ -376,7 +368,7 @@ export default function Home(){
                     
                     {
                         dummyExperiences.map(({img,text,index})=>(
-                            <div key={index}>
+                            <div onClick={()=>handleNext()} key={index}>
                             <Card style={!matches ? bigSc : smSc} className={classes.carouselCard}>
                                 <CardActionArea>
                                     <CardMedia
@@ -455,7 +447,7 @@ export default function Home(){
                     
                     {
                         dummyExperiences.map(({img,text,index})=>(
-                            <div key={index}>
+                            <div onClick={()=>handleNext()} key={index}>
                             <Card style={{maxWidth:"300px"}} className={classes.carouselCard}>
                                 <CardActionArea>
                                     <CardMedia
@@ -514,7 +506,7 @@ export default function Home(){
             <div className={classes.top5}>
             {
                 dummyExperiences.map(({img,text,index})=>(
-                    <div key={index}>
+                    <div onClick={()=>handleNext()} key={index}>
                     <Card style={!matches ? bigSc : smSc} className={classes.carouselCard}>
                         <CardActionArea>
                             <CardMedia
