@@ -101,3 +101,47 @@ body {
   grid-column: span 1;
   grid-row: span 1;
 }
+
+@media (max-width: 2560px) and (min-width:1440px) {
+  .container {
+    position: relative;
+    max-width: 90vw;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-template-rows: minmax(100px, auto);
+    grid-auto-flow: dense;
+    grid-gap: 2px;
+  }
+  .container .box img {
+    position: relative;
+    max-width: 800px;
+    margin-right:10px;
+  }
+  .container .box {
+    max-width: 800px;
+    border-radius: 0;
+  }
+}
+
+@media (max-width:1024px) and (min-width:800px){
+    .container {
+      position: relative;
+      max-width: 90vw;
+      display: grid;
+      grid-template-columns: 33.33% 33.33% 33.33%;
+      grid-template-rows: minmax(100px, auto);
+      grid-auto-flow: dense;
+      grid-gap: 2px;
+    }
+
+    .container .box img {
+      position: relative;
+      max-width: 341px;
+      margin-right: 10px;
+    }
+
+    .container .box {
+      max-width: 341px;
+      border-radius: 0;
+    }
+}

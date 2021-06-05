@@ -12,12 +12,19 @@ import {stepperContent} from "../../redux/actions/stepperAction";
 const FilesDropZone = ({setFieldValue,classes,errors})=>{
     const dispatch = useDispatch();
     const content = useSelector(state => state.stepperReducer.content);
-    const handleDrop = React.useCallback((acceptedFiles)=>{
+    const handleDrop = React.useCallback((acceptedFiles, fileRejections) => {
         if(acceptedFiles.length >= 6 && content.imagesOfExperience.length <=6){
             setFieldValue('imagesOfExperience',acceptedFiles,false);
             dispatch(stepperContent({
                 imagesOfExperience:[...acceptedFiles],
                 detailsOfExperience:content.detailsOfExperience
+            }))
+        }else if(fileRejections.length > 0 && Array.isArray(fileRejections)){
+            dispatch(errorHandler("Upload images of type jpeg and png only",true,'warning'));
+            setFieldValue('imagesOfExperience', [], false);
+            dispatch(stepperContent({
+                imagesOfExperience: [],
+                detailsOfExperience: content.detailsOfExperience
             }))
         }
         else{
@@ -32,6 +39,7 @@ const FilesDropZone = ({setFieldValue,classes,errors})=>{
 
     const {getRootProps, getInputProps} = useDropzone({
         onDrop: handleDrop,
+        accept: 'image/jpeg, image/png'
     });
 
     const handleRemoveItem = index=>{
